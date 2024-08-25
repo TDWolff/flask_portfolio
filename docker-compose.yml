@@ -8,4 +8,5 @@ services:
                 volumes:
                         - ./volumes:/volumes
                         - ./instance:/instance
+                        - ./movies:/movies
                 restart: unless-stopped

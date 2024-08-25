@@ -3,6 +3,8 @@ import threading
 # import "packages" from flask
 from flask import render_template,request  # import render_template from "public" flask libraries
 from flask.cli import AppGroup
+from flask import Flask, jsonify
+import os
 
 
 # import "packages" from "this" project
@@ -31,6 +33,11 @@ app.register_blueprint(covid_api) # register api routes
 app.register_blueprint(user_api) # register api routes
 app.register_blueprint(player_api)
 app.register_blueprint(app_projects) # register app pages
+
+@app.route('/api/movies', methods=['GET'])
+def get_movies():
+    movies = os.listdir('/movies')
+    return jsonify(movies)
 
 @app.errorhandler(404)  # catch for URL not found
 def page_not_found(e):
