@@ -3,7 +3,42 @@
 
 {% block body %}
     <div class="container mt-5">
-        <h1>Welcome to the Home Page</h1>
-        <p>This is a simple home page.</p>
+        <div class="row">
+            <div class="col-12">
+                <h1>Welcome to my website</h1>
+                <p>Hello! I'm a computer science student with a passion for programming and technology. Here's a bit about me:</p>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="rounded-box">
+                    <h2>About Me</h2>
+                    <p>
+                        My name is Torin Wolff, I'm 16 years old, and I plan on pursuing computer science through college. I am currently a computer science student with an internship at my school district, PUSD. I have been programming for 4 years and have completed my AP Computer Science Principles (CSP) course at my high school. Currently, I am working on my AP Computer Science A (CSA) course.
+                    </p>
+                    <h3>Skills:</h3>
+                    <li>3 Years of Python programming experience with Machine Learning</li>
+                    <li>1 Year of Java programming experience</li>
+                    <li>2 Years of Unity Game Engine with C#</li>
+                    <li>1 Year of Web Development with HTML, CSS, and JavaScript</li>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="rounded-box">
+                    <h2>Featured Projects</h2>
+                    <ul>
+                        <li><a href="https://github.com/TDWolff/Gemini_Google_Hackathon_Repo">AI Assistant Project</a> - Submitted to a google hackathon, this was a quick project where I implemented Google's Gemini AI with other api's, as well as a object detection model which I trained myself.</li>
+                        <li><a href="https://tdwolff.github.io/AtlasIndex/search">Atlas Index Website 2</a> - This was a project to use external api's and see how far you can push oneself with frontend work..</li>
+                        <li><a href="https://tdwolff.github.io/NART_Movie/">NART Movies Database And Recommendation System</a> - This project is a movie database, similar to IMDB, but in a more simpler form. I incorporated programming by using javascript and html with css for the background while using python and AWS for our backend. For my final project, I decided to incorporate to a wide variety of movies compared to my original 50 movies in my DB.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2>Contact</h2>
+                <p>If you would like to get in touch, please feel free to <a href="#">contact me</a>.</p>
+            </div>
+        </div>
     </div>
 {% endblock %}
