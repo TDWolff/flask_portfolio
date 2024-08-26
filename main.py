@@ -33,6 +33,10 @@ def page_not_found(e):
 def index():
     return render_template("index.html")
 
+@app.route('/about')
+def about():
+    return render_template("about.html")
+
 @app.route('/table/')  # connects /stub/ URL to stub() function
 def table():
     return render_template("table.html")

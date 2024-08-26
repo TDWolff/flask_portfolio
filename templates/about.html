@@ -1,0 +1,28 @@
+{% extends "layouts/base.html" %}
+
+{% block body %}
+    <body>
+
+    <div id="movies" style="padding: 20px;"></div>
+
+    <script>
+    fetch('/api/movies')
+        .then(response => response.json())
+        .then(data => {
+            const moviesDiv = document.getElementById('movies');
+            data.forEach(movie => {
+                const p = document.createElement('p');
+                p.textContent = movie;
+                moviesDiv.appendChild(p);
+            });
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    </script>
+
+    </body>
+{% endblock %}
+
+{% block background %}
+{% endblock %}
