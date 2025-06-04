@@ -3,6 +3,15 @@
 
 {% block body %}
 <style>
+    .resume-section h2 a {
+        color: #0055aa; /* match heading color or any color you want */
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .resume-section h2 a:hover {
+        color: #003366;
+    }
     .resume-container {
         max-width: 900px;
         margin: 3rem auto 5rem;
@@ -57,7 +66,7 @@
 
     {% macro section(title, content) %}
     <section class="resume-section">
-        <h2>{{ title }}</h2>
+        <h2>{{ title | safe }}</h2>
         <p>{{ content | safe }}</p>
     </section>
     {% endmacro %}
@@ -98,12 +107,16 @@
         "As a former intern with the Poway Unified School District (PUSD), I created a cloud-based computing platform using Kasm and AWS. This platform helps students with low-spec devices run high-demand software from anywhere. I configured Linux containers, integrated S3 storage securely, and ensured scalability. My drive to solve real problems, paired with a strong technical foundation, makes me the ideal candidate for this summer internship."
     ) }}
 
+    {{ section('<a href="https://pages.opencodingsociety.com/" target="_blank">My Project</a>', 
+        "My assignment this year has been to develop a new and unique UI for the project and the class to use. Working with everyone in the class opened me up to the different perspectives of my fellow classmates and allowed me to learn how to redesign UI and make it effective and clean."
+    ) }}
+
     <hr class="resume-divider">
 
     <div class="contact-info">
-        <p><strong>Portfolio:</strong> <a href="https://tdwolff.github.io" target="_blank">tdwolff.github.io</a></p>
+        <p><strong>Portfolio:</strong> <a href="https://torinwolff.com" target="_blank">tdwolff.github.io</a></p>
         <p><strong>GitHub:</strong> <a href="https://github.com/TDWolff" target="_blank">github.com/TDWolff</a></p>
-        <p><strong>Email:</strong> <a href="mailto:torin@torinwolff.com">torin@torinwolff.com</a></p>
+        <p><strong>Email:</strong> <a href="mailto:torindeanwolff@gmail.com">torindeanwolff@gmail.com</a></p>
     </div>
 </div>
 {% endblock %}
