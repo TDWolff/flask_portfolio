@@ -2,11 +2,108 @@
 {% set project = "Resume" %}
 
 {% block body %}
-    <body>
+<style>
+    .resume-container {
+        max-width: 900px;
+        margin: 3rem auto 5rem;
+        padding: 0 1rem;
+    }
 
+    .resume-section {
+        background-color: #f8fbff;
+        border: 1px solid #d6eaff;
+        border-radius: 10px;
+        padding: 1.5rem 2rem;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 4px 8px rgb(210 230 255 / 0.4);
+    }
 
-    </body>
-{% endblock %}
+    .resume-section h2 {
+        color: #0055aa;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
 
-{% block background %}
+    .resume-section p {
+        color: #1a3d7c;
+        line-height: 1.5;
+        font-size: 1rem;
+    }
+
+    .resume-section a {
+        color: #004080;
+        text-decoration: underline;
+    }
+
+    hr.resume-divider {
+        border: none;
+        border-top: 2px solid #d6eaff;
+        margin: 3rem 0;
+    }
+
+    .contact-info {
+        text-align: center;
+        color: #1a3d7c;
+        font-size: 1.1rem;
+    }
+
+    .contact-info a {
+        color: #004080;
+        text-decoration: underline;
+    }
+</style>
+
+<div class="resume-container">
+
+    {% macro section(title, content) %}
+    <section class="resume-section">
+        <h2>{{ title }}</h2>
+        <p>{{ content | safe }}</p>
+    </section>
+    {% endmacro %}
+
+    {{ section("Introduction: Passion Meets Technology", 
+        "I'm Torin Wolff, a 17-year-old student deeply passionate about computers, artificial intelligence, and the inner workings of hardware—from building PCs to understanding how PCBs and AIs function at the core. Coding became the bridge that connects my curiosity to real-world impact. It's not just a tool; it's how I bring ideas to life and solve meaningful problems."
+    ) }}
+
+    {{ section("Team-Based Projects & Collaboration", 
+        "Over the years, I've contributed to several collaborative projects, including a full-stack movie recommendation platform, a Kasm-based remote desktop for students, and a custom AI assistant built during a Google Hackathon. I enjoy meeting new people, understanding their strengths, and building bonds that lead to smoother, faster teamwork."
+    ) }}
+
+    {{ section("Teamwork Methodologies & Collaboration Tools", 
+        'One of my favorite team experiences was through the <a href="https://pages.opencodingsociety.com/profile" target="_blank">OpenCodingSociety Profile Page</a>. I worked across multiple teams to develop a feature-rich profile page that integrates dual backend support. We utilized tools like GitHub Projects, issue tracking, and daily check-ins to stay aligned. This taught me the importance of communication, version control, and shared responsibility.'
+    ) }}
+
+    {{ section("Full Stack Developer Skills", 
+        "I'm comfortable working across the entire tech stack—from designing clean user interfaces with Tailwind and JavaScript to backend logic using Python and Java. I’ve built login systems, managed data pipelines, and integrated secure cloud storage—all while keeping scalability and performance in mind."
+    ) }}
+
+    {{ section("Machine Learning Experience", 
+        "I got into AI through Gemini and the Google Hackathon. It fascinated me how models can interpret, respond, and assist dynamically. That curiosity evolved into projects using machine learning frameworks and integrating AI APIs. This hands-on experience taught me how AI fits into modern development."
+    ) }}
+
+    {{ section("GitHub Portfolio & OpenCodingSociety", 
+        'My GitHub is a living record of my growth and contributions. Many of my repositories reflect collaborative work and problem-solving, from full-stack applications to infrastructure scripts. Through my involvement in the <a href="https://pages.opencodingsociety.com/" target="_blank">OpenCodingSociety</a>, I’ve contributed to shared codebases, documentation, and feature rollouts.'
+    ) }}
+
+    {{ section("Showcasing My Work", 
+        "Events like N@tM (Night at the Museum) have allowed me to present my work to a wide audience. I showcased the dual-backend profile page, the movie database, and the AI assistant. These experiences helped me communicate technical ideas clearly and confidently."
+    ) }}
+
+    {{ section("Favorite Project Demo: AI Assistant", 
+        "My proudest project is the AI Assistant built for the Gemini Google Hackathon. It combined voice interaction with object detection and ranked 10th in the community. This project challenged me to learn fast, integrate APIs, and build something real and helpful in a short timeframe."
+    ) }}
+
+    {{ section("Why Me? Unique Qualifications", 
+        "As a former intern with the Poway Unified School District (PUSD), I created a cloud-based computing platform using Kasm and AWS. This platform helps students with low-spec devices run high-demand software from anywhere. I configured Linux containers, integrated S3 storage securely, and ensured scalability. My drive to solve real problems, paired with a strong technical foundation, makes me the ideal candidate for this summer internship."
+    ) }}
+
+    <hr class="resume-divider">
+
+    <div class="contact-info">
+        <p><strong>Portfolio:</strong> <a href="https://tdwolff.github.io" target="_blank">tdwolff.github.io</a></p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/TDWolff" target="_blank">github.com/TDWolff</a></p>
+        <p><strong>Email:</strong> <a href="mailto:torin@torinwolff.com">torin@torinwolff.com</a></p>
+    </div>
+</div>
 {% endblock %}
