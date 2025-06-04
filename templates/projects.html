@@ -1,0 +1,93 @@
+{% extends "layouts/base.html" %}
+{% set project = "Projects" %}
+
+{% block body %}
+<style>
+    .projects-hero {
+        background: linear-gradient(to right, #e0f0ff, #d0e7ff);
+        padding: 3rem 2rem;
+        text-align: center;
+        border-radius: 12px;
+        margin-bottom: 3rem;
+    }
+
+    .projects-hero h1 {
+        color: #004080;
+        font-weight: 700;
+    }
+
+    .project-card {
+        background-color: #f8fbff;
+        border: 1px solid #d6eaff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.2s ease-in-out;
+        height: 100%;
+    }
+
+    .project-card:hover {
+        box-shadow: 0 4px 16px rgba(0, 64, 128, 0.1);
+        transform: translateY(-3px);
+    }
+
+    .project-card h5 {
+        color: #0055aa;
+        font-weight: 600;
+    }
+
+    .project-card p {
+        color: #1a3d7c;
+    }
+
+    a.project-link {
+        text-decoration: none;
+        color: #004080;
+        font-weight: 500;
+    }
+
+    a.project-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="container">
+    <!-- Hero -->
+    <div class="projects-hero">
+        <h1>Projects & Achievements</h1>
+        <p>Here are some of the most meaningful and exciting projects I've worked on, showcasing my development journey.</p>
+    </div>
+
+    <!-- Project Cards -->
+    <div class="row g-4">
+        <div class="col-md-4" id="ai-assistant">
+            <div class="project-card">
+                <h5>AI Assistant Project</h5>
+                <p>
+                    Submitted to a Google Hackathon, this project integrates Gemini AI with custom object detection to build a responsive voice assistant.
+                </p>
+                <a href="https://github.com/TDWolff/Gemini_Google_Hackathon_Repo" class="project-link" target="_blank">View on GitHub</a>
+            </div>
+        </div>
+
+        <div class="col-md-4" id="atlas-index">
+            <div class="project-card">
+                <h5>Atlas Index Website 2</h5>
+                <p>
+                    My first major web project using external APIs to deliver categorized search and knowledge indexing in a sleek interface.
+                </p>
+                <a href="https://tdwolff.github.io/AtlasIndex/search" class="project-link" target="_blank">View Live</a>
+            </div>
+        </div>
+
+        <div class="col-md-4" id="nart-movies">
+            <div class="project-card">
+                <h5>NART Movies Database</h5>
+                <p>
+                    A full-stack app combining movie data, user interaction, and recommendations—featuring custom backend logic and a smooth frontend.
+                </p>
+                <a href="https://tdwolff.github.io/NART_Movie/" class="project-link" target="_blank">Explore the Project</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

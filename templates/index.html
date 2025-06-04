@@ -2,43 +2,108 @@
 {% set project = "Home" %}
 
 {% block body %}
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-12">
-                <h1>Welcome to my website</h1>
-                <p>Hello! I'm a computer science student with a passion for programming and technology. Here's a bit about me:</p>
+<style>
+    .hero {
+        background: linear-gradient(to right, #e0f0ff, #d0e7ff);
+        padding: 4rem 2rem;
+        text-align: center;
+        border-radius: 12px;
+    }
+
+    .hero h1 {
+        color: #004080;
+        font-weight: 700;
+    }
+
+    .hero p {
+        color: #1a3d7c;
+        font-size: 1.2rem;
+    }
+
+    .project-card {
+        border: 1px solid #d6eaff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        background-color: #f8fbff;
+        transition: all 0.2s ease-in-out;
+        height: 100%;
+    }
+
+    .project-card:hover {
+        box-shadow: 0 4px 16px rgba(0, 64, 128, 0.1);
+        transform: translateY(-3px);
+    }
+
+    .project-card h5 {
+        color: #0055aa;
+        font-weight: 600;
+    }
+
+    .project-card a {
+        color: #004080;
+        text-decoration: none;
+    }
+
+    .footer {
+        background-color: #f1f8ff;
+        color: #333;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Hero Section -->
+    <div class="hero mb-5">
+        <h1>Welcome!</h1>
+        <p>I'm a computer science student passionate about programming, AI, and technology. Explore my work and get in touch!</p>
+    </div>
+
+    <!-- Featured Projects Section -->
+    <h2 class="text-center mb-4 text-primary">Featured Projects</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="project-card">
+                <h5>AI Assistant Project</h5>
+                <p>A voice-activated assistant built during a Google Hackathon using Gemini and Python APIs.</p>
+                <a href="https://github.com/TDWolff/Gemini_Google_Hackathon_Repo" target="_blank">View Project</a> |
+                <a href="{{ url_for('projects') }}#ai-assistant">Learn More</a>
             </div>
         </div>
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <div class="rounded-box">
-                    <h2>About Me</h2>
-                    <p>
-                        My name is Torin Wolff, I'm 16 years old, and I plan on pursuing computer science through college. I am currently a computer science student with an internship at my school district, PUSD. I have been programming for 4 years and have completed my AP Computer Science Principles (CSP) course at my high school. Currently, I am working on my AP Computer Science A (CSA) course.
-                    </p>
-                    <h3>Skills:</h3>
-                    <li>3 Years of Python programming experience with Machine Learning</li>
-                    <li>1 Year of Java programming experience</li>
-                    <li>2 Years of Unity Game Engine with C#</li>
-                    <li>1 Year of Web Development with HTML, CSS, and JavaScript</li>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="rounded-box">
-                    <h2>Featured Projects</h2>
-                    <ul>
-                        <li><a href="https://github.com/TDWolff/Gemini_Google_Hackathon_Repo">AI Assistant Project</a> - Submitted to a google hackathon, this was a quick project where I implemented Google's Gemini AI with other api's, as well as a object detection model which I trained myself.</li>
-                        <li><a href="https://tdwolff.github.io/AtlasIndex/search">Atlas Index Website 2</a> - This was a project to use external api's and see how far you can push oneself with frontend work..</li>
-                        <li><a href="https://tdwolff.github.io/NART_Movie/">NART Movies Database And Recommendation System</a> - This project is a movie database, similar to IMDB, but in a more simpler form. I incorporated programming by using javascript and html with css for the background while using python and AWS for our backend. For my final project, I decided to incorporate to a wide variety of movies compared to my original 50 movies in my DB.</li>
-                    </ul>
-                </div>
+        <div class="col-md-4">
+            <div class="project-card">
+                <h5>Atlas Index Website</h5>
+                <p>An intelligent index/search tool to explore categorized knowledge using a sleek UI.</p>
+                <a href="https://tdwolff.github.io/AtlasIndex/search" target="_blank">View Project</a> |
+                <a href="{{ url_for('projects') }}#atlas-index">Learn More</a>
             </div>
         </div>
-        <div class="row mt-4">
-            <div class="col-12">
-                <h2>Contact</h2>
-                <p>If you would like to get in touch, please feel free to <a href="#">contact me</a>.</p>
+        <div class="col-md-4">
+            <div class="project-card">
+                <h5>NART Movies Database</h5>
+                <p>A curated database and recommender system for movies based on your preference.</p>
+                <a href="https://tdwolff.github.io/NART_Movie/" target="_blank">View Project</a> |
+                <a href="{{ url_for('projects') }}#nart-movies">Learn More</a>
             </div>
         </div>
     </div>
+
+    <!-- Contact Section -->
+    <div class="text-center mt-5">
+        <h2 class="text-primary">Contact</h2>
+        <p>Have questions or want to collaborate? <a href="#">Reach out here</a>.</p>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer mt-5 py-3">
+    <div class="container text-center">
+        <small>
+            Torin Wolff — High school student and aspiring computer scientist skilled in Python, Java, Unity, and full-stack development.
+            <a href="{{ url_for('about') }}">More about me</a>
+        </small>
+    </div>
+</footer>
 {% endblock %}

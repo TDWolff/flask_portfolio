@@ -7,33 +7,69 @@
     <style>
         .navbar {
             background: linear-gradient(to bottom, #5fb1ff, #d1e8ff);
-            padding: 10px 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 8px 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0 0 12px 12px;
         }
 
-        .round-button {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 50px;
-            background-color: #007bff;
-            color: white;
-            text-align: center;
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 14px;
+        }
+
+        .navbar-link {
             text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: 500;
+            color: #004080;
+            padding: 8px 16px;
+            border-radius: 999px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
         }
 
-        .round-button:hover {
-            background-color: #0056b3;
-            transform: scale(1.1);
-            color: white;
+        .navbar-link:hover,
+        .navbar-link.active {
+            background-color: #e6f2ff;
+            color: #002f5c;
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .navbar-links {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <a href="{{ url_for('index') }}">
-            <img src="{{ url_for('static', filename='assets/twcom.png') }}" width="80" height="70" class="d-inline-block align-center" alt="Home">
+        <a href="{{ url_for('index') }}" class="navbar-logo">
+            <img src="{{ url_for('static', filename='assets/twcom.png') }}" alt="Logo">
         </a>
+        <div class="navbar-links">
+            <a href="{{ url_for('index') }}" class="navbar-link">Home</a>
+            <a href="{{ url_for('about') }}" class="navbar-link">About Me</a>
+            <a href="{{ url_for('projects') }}" class="navbar-link">Projects</a>
+        </div>
     </nav>
 </body>
 </html>

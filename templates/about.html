@@ -1,28 +1,104 @@
 {% extends "layouts/base.html" %}
+{% set project = "About" %}
 
 {% block body %}
-    <body>
+<style>
+    .hero-about {
+        background: linear-gradient(to right, #e0f0ff, #d0e7ff);
+        padding: 3rem 2rem;
+        text-align: center;
+        border-radius: 12px;
+        margin-bottom: 3rem;
+    }
 
-    <div id="movies" style="padding: 20px;"></div>
+    .hero-about h1 {
+        color: #004080;
+        font-weight: 700;
+    }
 
-    <script>
-    fetch('/api/movies')
-        .then(response => response.json())
-        .then(data => {
-            const moviesDiv = document.getElementById('movies');
-            data.forEach(movie => {
-                const p = document.createElement('p');
-                p.textContent = movie;
-                moviesDiv.appendChild(p);
-            });
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-    </script>
+    .section-heading {
+        color: #0055aa;
+        margin-top: 2rem;
+        font-weight: 600;
+    }
 
-    </body>
-{% endblock %}
+    .skill-card {
+        background-color: #f8fbff;
+        border: 1px solid #d6eaff;
+        border-radius: 10px;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+    }
 
-{% block background %}
+    .skill-card strong {
+        color: #004080;
+    }
+
+    p {
+        color: #1a3d7c;
+    }
+
+    ul {
+        padding-left: 1.2rem;
+    }
+</style>
+
+<div class="container">
+    <!-- Hero Section -->
+    <div class="hero-about">
+        <h1>About Me</h1>
+        <p>
+            I'm Torin Wolff, a 17-year-old aspiring computer scientist with a passion for technology, creative problem-solving, and building tools that matter.
+        </p>
+    </div>
+
+    <!-- Bio and Skills Section -->
+    <div class="row">
+        <!-- Bio -->
+        <div class="col-md-7">
+            <h2 class="section-heading">My Journey</h2>
+            <p>
+                My programming journey began four years ago, and I've since explored a wide range of languages and tools. I'm currently a high school student enrolled in AP Computer Science A, following my completion of AP CSP.
+            </p>
+            <p>
+                Recently, I've focused on Java and front-end interface design, expanding my skills in creating responsive, polished user experiences. For a class project in CSA, I designed and implemented a login system and dynamic profile pages using Tailwind CSS.
+            </p>
+            <p>
+                On the backend side, I integrated both Python and Java to support authentication and data handling, giving me hands-on experience with multi-language backend support and real-world development pipelines.
+            </p>
+            <p>
+                I'm also interning with my school district (PUSD), where I contribute to active development efforts and gain valuable collaboration experience with professional engineers.
+            </p>
+            <p>
+                Outside the classroom, I enjoy building personal projects, participating in hackathons, and exploring areas like machine learning, web development, and game design. My ultimate goal is to use technology to make a positive impact and solve real-world problems.
+            </p>
+        </div>
+
+        <!-- Skills -->
+        <div class="col-md-5">
+            <h2 class="section-heading">Skills & Experience</h2>
+            <div class="skill-card">
+                <strong>Python</strong><br>
+                4 years — machine learning, data analysis, scripting
+            </div>
+            <div class="skill-card">
+                <strong>Java</strong><br>
+                2 years — object-oriented programming, algorithms
+            </div>
+            <div class="skill-card">
+                <strong>Unity & C#</strong><br>
+                3 years — game development, interactive simulations
+            </div>
+            <div class="skill-card">
+                <strong>Web Development</strong><br>
+                2 years — HTML, CSS, JavaScript, frontend design
+            </div>
+        </div>
+    </div>
+
+    <!-- Closing Note -->
+    <div class="text-center mt-5">
+        <p>I'm excited to keep learning and growing in this field—thank you for visiting my portfolio!</p>
+    </div>
+</div>
 {% endblock %}
