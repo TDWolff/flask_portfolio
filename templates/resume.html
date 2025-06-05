@@ -2,66 +2,6 @@
 {% set project = "Resume" %}
 
 {% block body %}
-<style>
-    .resume-section h2 a {
-        color: #0055aa; /* match heading color or any color you want */
-        text-decoration: underline;
-        cursor: pointer;
-    }
-
-    .resume-section h2 a:hover {
-        color: #003366;
-    }
-    .resume-container {
-        max-width: 900px;
-        margin: 3rem auto 5rem;
-        padding: 0 1rem;
-    }
-
-    .resume-section {
-        background-color: #f8fbff;
-        border: 1px solid #d6eaff;
-        border-radius: 10px;
-        padding: 1.5rem 2rem;
-        margin-bottom: 2.5rem;
-        box-shadow: 0 4px 8px rgb(210 230 255 / 0.4);
-    }
-
-    .resume-section h2 {
-        color: #0055aa;
-        font-weight: 600;
-        margin-bottom: 1rem;
-    }
-
-    .resume-section p {
-        color: #1a3d7c;
-        line-height: 1.5;
-        font-size: 1rem;
-    }
-
-    .resume-section a {
-        color: #004080;
-        text-decoration: underline;
-    }
-
-    hr.resume-divider {
-        border: none;
-        border-top: 2px solid #d6eaff;
-        margin: 3rem 0;
-    }
-
-    .contact-info {
-        text-align: center;
-        color: #1a3d7c;
-        font-size: 1.1rem;
-    }
-
-    .contact-info a {
-        color: #004080;
-        text-decoration: underline;
-    }
-</style>
-
 <div class="resume-container">
 
     {% macro section(title, content) %}
