@@ -1,5 +1,5 @@
 import threading
-
+import subprocess
 # import "packages" from flask
 from flask import render_template,request  # import render_template from "public" flask libraries
 from flask.cli import AppGroup
@@ -48,6 +48,29 @@ def resume():
 @app.route('/table/')  # connects /stub/ URL to stub() function
 def table():
     return render_template("table.html")
+
+@app.route('/refreshmainapp', methods=['GET'])
+def refreshmainapp():
+    try:
+        result = subprocess.run(
+            ["bash", "run.sh"],  # or ["./run.sh"] if the script is executable
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        return jsonify({
+            "status": "success",
+            "message": "Main app refreshed",
+            "stdout": result.stdout,
+            "stderr": result.stderr
+        }), 200
+    except subprocess.CalledProcessError as e:
+        return jsonify({
+            "status": "error",
+            "message": "Failed to refresh main app",
+            "stdout": e.stdout,
+            "stderr": e.stderr
+        }), 500
 
 @app.before_request
 def before_request():
