@@ -1,0 +1,55 @@
+{% extends "layouts/base.html" %}
+{% set project = "Blogs" %}
+
+{% block body %}
+<style>
+    .blog-list {
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .skill-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 16px;
+        background-color: #f9f9f9;
+        width: 100%;
+        text-align: left;
+    }
+</style>
+
+<div class="container text-center">
+    <!-- Hero Section -->
+    <div class="hero-about">
+        <h1>Blogs</h1>
+        <p>
+            A list of all my blogs made during CSA 2025.
+        </p>
+    </div>
+
+    <!-- Blog List -->
+    <div class="d-flex flex-column align-items-center blog-list">
+        <div class="skill-card">
+            <a href="https://tdwolff.github.io/Torin_2025/csa-calculator/"><strong>Calculator Enactment</strong></a><br>
+            A web-based calculator built to practice DOM manipulation and user input.
+        </div>
+        <div class="skill-card">
+            <a href="https://tdwolff.github.io/Torin_2025/csa-jquery-hw/"><strong>JQuery</strong></a><br>
+            An interactive page using jQuery to handle events and animations.
+        </div>
+        <div class="skill-card">
+            <a href="https://tdwolff.github.io/Torin_2025/csa-mergesort/"><strong>Merge Sorting</strong></a><br>
+            Visualizes how merge sort works using step-by-step animation.
+        </div>
+        <div class="skill-card">
+            <a href="https://tdwolff.github.io/Torin_2025/csa-collectibles/"><strong>Collectibles</strong></a><br>
+            Displays collectible items using arrays and dynamic rendering.
+        </div>
+        <div class="skill-card">
+            <a href="https://tdwolff.github.io/Torin_2025/csa-heuristics/"><strong>Heuristics</strong></a><br>
+            A blog explaining heuristics with examples and real-world relevance.
+        </div>
+    </div>
+</div>
+{% endblock %}

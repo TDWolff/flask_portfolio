@@ -45,6 +45,10 @@ def projects():
 def resume():
     return render_template("resume.html")
 
+@app.route('/blogs')
+def blogs():
+    return render_template("blogs.html")
+
 @app.route('/table/')  # connects /stub/ URL to stub() function
 def table():
     return render_template("table.html")
