@@ -1,0 +1,166 @@
+{% extends "layouts/base.html" %}
+{% set project = "Tutorials" %}
+
+
+{% block body %}
+
+<style>
+    pre {
+        background-color:rgb(244, 249, 255);
+        color:rgb(0, 0, 0);
+        padding: 12px 16px;
+        border-radius: 6px;
+        overflow-x: auto;
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 14px;
+        white-space: pre-wrap;
+    }
+
+    pre code {
+        display: block;
+        line-height: 1.4em;
+    }
+
+    /* Basic color highlights */
+    pre code .keyword {
+        color: #569cd6;
+        font-weight: 600;
+    }
+
+    pre code .builtin {
+        color: #dcdcaa;
+    }
+
+    pre code .string {
+        color: #d69d85;
+    }
+
+    pre code .comment {
+        color: #6a9955;
+        font-style: italic;
+    }
+
+    pre code .number {
+        color: #b5cea8;
+    }
+</style>
+
+<div class="container-fluid">
+  <div class="row min-vh-100">
+    <!-- Sidebar -->
+    <nav class="col-md-3 col-lg-2 d-md-block tutorial-sidebar p-0 shadow-sm">
+      <div class="d-flex flex-column h-100 position-sticky top-0 overflow-auto pt-4 px-3">
+        <h3 class="text-primary mb-3" style="padding-left: 10px">Tutorials</h3>
+        <div class="accordion" id="projectAccordion">
+
+          <!-- Project 1 -->
+          <div class="accordion-item mb-2 border-0">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button collapsed bg-white text-primary fw-semibold" type="button"
+                data-bs-toggle="collapse" data-bs-target="#project1" aria-expanded="false" aria-controls="project1"
+                onclick="toggleTutorial('ai-tutorial')">
+                Project 1: Building an AI
+              </button>
+            </h2>
+            <div id="project1" class="accordion-collapse collapse" aria-labelledby="headingOne"
+              data-bs-parent="#projectAccordion">
+              <div class="accordion-body ps-4">
+                <ul class="list-unstyled">
+                  <li><a href="#ai-step1" class="nav-link">Step 1: Getting To Know AI</a></li>
+                  <li><a href="#ai-step2" class="nav-link">Step 2: Basic Neuron</a></li>
+                  <li><a href="#ai-step3" class="nav-link">Step 3: Multiple Nuerons</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-4">
+      <!-- AI Assistant Tutorial -->
+      <div id="ai-tutorial" class="tutorial-section" style="display: none;">
+        <section id="ai-step1" class="mb-5">
+            <h2>Step 1: Getting To Know AI</h2>
+            <p><strong>What is AI?</strong><br>
+            Artificial Intelligence (AI) means teaching computers to think and learn like humans. Instead of just following exact instructions, AI can make decisions, recognize patterns, and improve over time. It powers things like voice assistants, recommendation systems, and self-driving cars.</p>
+          
+            <p><strong>What will this tutorial cover?</strong><br>
+            In this tutorial, you'll learn how to build a basic AI from scratch. We'll start simple and build up step-by-step:</p>
+          
+            <ul>
+              <li><strong>Step 1:</strong> Understand what AI really is and how it works.</li>
+              <li><strong>Step 2:</strong> Create a basic neuron, which is the building block of AI, that can convert inputs to outputs.</li>
+              <li><strong>Step 3:</strong> Connect multiple neurons to make your AI smarter and able to solve more complex problems.</li>
+            </ul>
+          
+            <p>By the end, you'll have a clear understanding of how AI works at its core and how to create your own simple AI models!</p>
+          </section>          
+        <section id="ai-step2" class="mb-5">
+          <h2>AI Assistant - Step 2: Basic Nueron</h2>
+          <p>A simple nueron works by taking in a string of numbers such as ASCII or other variables, then applying a weight and balance to the numbers to get an output. Tuning these weights and balances allows for the AI to develop the idea of what you want the input to mean. For this tutorial we will be using Numpy with Python to make the basic neuron. Lets get started!</p>
+            <ol>
+                <li>First we will import Numpy.</li>
+                <pre><code>
+                    import numpy as np
+                </code></pre>
+                <li>Next we will define our neuron class. We will add our init function which will define our weights, biases, and input values.</li>
+                <pre><code>
+                    import numpy as np
+                    class Neuron:
+                        def __init__(self, bias, weights):
+                            self.bias = bias
+                            self.weight = weights
+                            self.inputs = None
+                </code></pre>
+            </ol>
+        </section>
+        <section id="ai-step3" class="mb-5">
+          <h2>AI Assistant - Step 3: Multiple Neurons</h2>
+          <p>Process voice commands and generate responses using Gemini API or other services.</p>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- JS to toggle visible tutorial -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const allTutorials = document.querySelectorAll(".tutorial-section");
+      const collapses = document.querySelectorAll('.accordion-collapse');
+  
+      function showTutorial(id) {
+        allTutorials.forEach(section => {
+          section.style.display = (section.id === id) ? "block" : "none";
+        });
+      }
+  
+      // Show tutorial when button clicked (your existing toggle function simplified)
+      window.toggleTutorial = function(id) {
+        showTutorial(id);
+      }
+  
+      // Listen for collapse shown and hidden events
+      collapses.forEach(collapseEl => {
+        collapseEl.addEventListener('shown.bs.collapse', (event) => {
+          // Show the tutorial related to this collapse
+          const id = event.target.id; // e.g. 'project1' or 'project2'
+          if (id === 'project1') showTutorial('ai-tutorial');
+          else if (id === 'project2') showTutorial('kasm-tutorial');
+        });
+  
+        collapseEl.addEventListener('hidden.bs.collapse', (event) => {
+          // Check if any collapse is still shown
+          const anyOpen = Array.from(collapses).some(el => el.classList.contains('show'));
+          if (!anyOpen) {
+            // Hide all tutorials if none open
+            allTutorials.forEach(section => section.style.display = 'none');
+          }
+        });
+      });
+    });
+  </script>  
+{% endblock %}
+

@@ -22,6 +22,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   color: #6a6a6a;
+  padding-top: 20px;
 }
 
 a {
@@ -225,3 +226,99 @@ ul {
         padding: 1rem;
     }
 }
+
+.tutorial-sidebar {
+    background-color: #f1f8ff;
+    border-right: 1px solid #d6eaff;
+    min-height: 100vh;
+  }
+  
+  .tutorial-sidebar h5 {
+    font-weight: 600;
+    color: #0055aa;
+  }
+  
+  .tutorial-sidebar .accordion-button {
+    background-color: #f8fbff;
+    border: none;
+    color: #004080;
+  }
+  
+  .tutorial-sidebar .accordion-button:focus {
+    box-shadow: none;
+  }
+  
+  .tutorial-sidebar .accordion-button:not(.collapsed) {
+    background-color: #e6f3ff;
+    color: #003366;
+  }
+  
+  .tutorial-sidebar .nav-link {
+    font-size: 0.95rem;
+    color: #1a3d7c;
+    padding-left: 1rem;
+    display: block;
+    margin: 0.25rem 0;
+  }
+  
+  .tutorial-sidebar .nav-link:hover {
+    color: #0055aa;
+    text-decoration: underline;
+  }
+  
+
+  .tutorial-sidebar .accordion-body ul li:nth-child(odd) {
+    background-color: #ffffff;
+  }
+  
+  .tutorial-sidebar .accordion-body ul li:nth-child(even) {
+    background-color: #fafdff; /* soft grey-blue that matches your palette */
+  }
+  
+  .tutorial-sidebar .accordion-body ul li a {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+  
+  .tutorial-sidebar .accordion-body ul li a:hover {
+    background-color: #d6eaff;
+    color: #003366;
+    text-decoration: none;
+  }
+
+  .tutorial-section {
+    background-color: #f8fbff;       /* very light blue */
+    border: 1px solid #d6eaff;       /* soft blue border */
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 4px 12px rgb(210 230 255 / 0.4);
+    color: #1a3d7c;
+    max-width: 900px;
+    margin: 0 auto 3rem auto;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  .tutorial-section h2 {
+    color: #0055aa;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+    .tutorial-section p {
+        color: #1a3d7c;
+        line-height: 1.6;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .tutorial-section a {
+        color: #004080;
+        text-decoration: underline;
+    }
+
+    .tutorial-section a:hover {
+        color: #003366;
+        text-decoration: none;
+    }
