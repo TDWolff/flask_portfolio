@@ -114,6 +114,61 @@
                             self.weight = weights
                             self.inputs = None
                 </code></pre>
+                <li>Next we will add our activation function. This is the function that will take in our inputs and apply the weights and biases to get an output.</li>
+                <pre><code>
+                    import numpy as np
+                    class Neuron:
+                        def __init__(self, bias, weights):
+                            self.bias = bias
+                            self.weight = weights
+                            self.inputs = None
+
+                    def activation_function(self, inputs):
+                        self.inputs = inputs
+                        output = np.dot(self.inputs, self.weight) + self.bias
+                        return output
+                </code></pre>
+                <li>Now we will implement a ReLu function which will allow us to get a positive output from our neuron.</li>
+                <pre><code>
+                  import numpy as np
+                  class Neuron:
+                      def __init__(self, bias, weights):
+                          self.bias = bias
+                          self.weight = weights
+                          self.inputs = None
+                      def activation_function(self, inputs):
+                          self.inputs = inputs
+                          output = np.dot(self.inputs, self.weight) + self.bias
+                          return self.relu(output)
+                      def relu(self, x):
+                          return 1 / (1 + np.exp(-x))
+                </code></pre>
+                <li>Finally we will create an instance of our neuron and test it with some inputs.</li>
+                <pre><code>
+                  import numpy as np
+                  class Neuron:
+                      def __init__(self, bias, weights):
+                          self.bias = bias
+                          self.weight = weights
+                          self.inputs = None
+                      def activation_function(self, inputs):
+                          self.inputs = inputs
+                          output = np.dot(self.inputs, self.weight) + self.bias
+                          return self.relu(output)
+                      def relu(self, x):
+                          return 1 / (1 + np.exp(-x))
+                      
+                  if __name__ == "__main__":
+                      bias = 0.5
+                      weights = np.array([0.2, 0.8, -0.5])
+                      neuron = Neuron(bias, weights)
+                      
+                      inputs = np.array([1.0, 0.5, -1.0])
+                      output = neuron.activation_function(inputs)
+                      
+                      print("Neuron output:", output)
+                </code></pre>
+                <p>And that's it! You have created a basic neuron that can take in inputs, apply weights and biases, and return an output. You can now use this neuron to build more complex neural networks.</li>
             </ol>
         </section>
         <section id="ai-step3" class="mb-5">
