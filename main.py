@@ -57,10 +57,6 @@ def tutorials():
 def table():
     return render_template("table.html")
 
-@app.route('/tutorials')
-def tutorials():
-    return render_template("tutorials.html")
-
 @app.before_request
 def before_request():
     # Check if the request came from a specific origin
