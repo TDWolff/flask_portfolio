@@ -1,0 +1,25 @@
+{% extends "layouts/base.html" %}
+{% set project = "Blender" %}
+
+{% block body %}
+<div class="container text-center">
+    <!-- Hero -->
+    <div class="projects-hero">
+        <h1>Blender Artwork Gallery</h1>
+        <p>Here are some of the most meaningful and exciting Blender projects I've worked on, showcasing my artwork journey.</p>
+    </div>
+
+    <!-- Project Cards -->
+    <div class="row g-4">
+        <div class="col-md-4" id="ai-assistant">
+            <div class="project-card">
+                <h5>Blender Demo Reel | 3D Animation 1</h5>
+                <p>
+                    My first Blender demo reel showcasing various 3D animation models and scenes I created while learning Blender.
+                </p>
+                <a href="https://youtu.be/iYwHZDsTmCI" class="project-link" target="_blank">View on Youtube</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

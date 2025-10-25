@@ -45,6 +45,10 @@ def projects():
 def resume():
     return render_template("resume.html")
 
+@app.route('/blender')
+def blender():
+    return render_template("blender.html")
+
 @app.route('/blogs')
 def blogs():
     return render_template("blogs.html")
