@@ -14,22 +14,31 @@ dotenv.load_dotenv()
 # import "packages" from "this" project
 from __init__ import app, cors  # Definitions initialization
 
+def get_key_for_limiter():
+    """Custom key function that allows dev bypass"""
+    # Check for dev authorization header
+    dev_token = request.headers.get('X-Dev-Token')
+    if dev_token and dev_token == os.getenv('DEV_TOKEN'):
+        print(f"✅ Dev bypass granted for {get_remote_address()}")
+        return None  # No rate limiting for authorized devs
+    
+    # Regular rate limiting for everyone else
+    return get_remote_address()
+
 # Create limiter instance with Redis storage
 pwss = os.getenv('redisp')
 try:
     limiter = Limiter(
-        key_func=get_remote_address,
+        key_func=get_key_for_limiter,  # Use custom key function
         default_limits=["200 per day", "50 per hour"],
-        storage_uri=f"redis://:{pwss}@localhost:6379"  # Fixed Redis connection string with password
+        storage_uri=f"redis://:{pwss}@172.17.0.1:6379"
     )
-    # Initialize with app
     limiter.init_app(app)
     print("Redis limiter initialized successfully")
 except Exception as e:
     print(f"Redis connection failed, falling back to memory storage: {e}")
-    # Fallback to memory storage if Redis fails
     limiter = Limiter(
-        key_func=get_remote_address,
+        key_func=get_key_for_limiter,  # Use custom key function
         default_limits=["200 per day", "50 per hour"],
         storage_uri="memory://"
     )
