@@ -43,19 +43,19 @@
             {% set github_base_url = "https://raw.githubusercontent.com/TDWolff/DataStorage/refs/heads/main/" %}
             {% set gallery_items = [
                 {"image": "morningbreakfast4k.png", "name": "Morning Breakfast"},
-                {"image": "gemmountain4k.png", "name": "Gem of Mountain"},
+                {"image": "gemmountain4k.png", "name": "Gem of Mountain", "brightness": 1.2},
                 {"image": "writersroom4k.png", "name": "A Writers Desk"},
                 {"image": "laserbeam4k.png", "name": "Mining Laser"},
-                {"image": "omnipotentdonut4k.png", "name": "Omnipotent Donut"},
-                {"image": "desertedgasstation4k.png", "name": "Deserted Gas Station"}
+                {"image": "omnipotentdonut4k.png", "name": "Omnipotent Donut", "brightness": 1.2},
+                {"image": "desertedgasstation4k.png", "name": "Deserted Gas Station", "brightness": 1.2}
             ] %}
             
             {% for item in gallery_items %}
             <div class="col-6 col-md-4">
-                <div class="gallery-card" onclick="openModal('{{ github_base_url }}full/{{ item.image }}', '{{ item.name }}')">
-                    <img src="{{ github_base_url }}thumbnails/{{ item.image }}" 
+                    <div class="gallery-card" onclick="openModal('{{ github_base_url }}full/{{ item.image }}', '{{ item.name }}', {{ item.brightness or 1.0 }})">                    <img src="{{ github_base_url }}thumbnails/{{ item.image }}" 
                          alt="{{ item.name }}" 
                          class="gallery-image"
+                         {% if item.brightness %}style="filter: brightness({{ item.brightness }});"{% endif %}
                          loading="lazy">
                     <div class="gallery-overlay">
                         <i class="bi bi-zoom-in"></i>
@@ -294,7 +294,7 @@
 </style>
 
 <script>
-function openModal(imageSrc, caption) {
+function openModal(imageSrc, caption, brightness) {
     var modal = document.getElementById("imageModal");
     var modalImg = document.getElementById("modalImage");
     var modalCaption = document.getElementById("modalCaption");
@@ -312,6 +312,11 @@ function openModal(imageSrc, caption) {
     fullImg.onload = function() {
         modalImg.src = imageSrc;
         modalImg.style.display = "block";
+        if (brightness && brightness !== 1.0) {
+            modalImg.style.filter = `brightness(${brightness})`;
+        } else {
+            modalImg.style.filter = ''; // Reset filter if no brightness adjustment
+        }
         loadingIndicator.style.display = "none";
         modalCaption.innerHTML = caption;
     };
