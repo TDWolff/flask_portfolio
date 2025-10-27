@@ -4,11 +4,21 @@ import subprocess
 from flask import render_template,request  # import render_template from "public" flask libraries
 from flask.cli import AppGroup
 from flask import Flask, jsonify
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 import os
-
 
 # import "packages" from "this" project
 from __init__ import app, cors  # Definitions initialization
+
+# Create limiter instance
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"]
+)
+
+# Initialize with app
+limiter.init_app(app)
 
 # from api.user import user_api # Blueprint import api definition
 
@@ -28,6 +38,18 @@ from __init__ import app, cors  # Definitions initialization
 def page_not_found(e):
     # note that we set the 404 status explicitly
     return render_template('404.html'), 404
+
+@app.before_request
+def log_suspicious_requests():
+    # Log suspicious patterns
+    user_agent = request.headers.get('User-Agent', '')
+    if any(bot in user_agent.lower() for bot in ['sqlmap', 'nikto', 'nmap']):
+        app.logger.warning(f"Suspicious user agent: {user_agent} from {request.remote_addr}")
+    
+    # Check for common attack patterns in URLs
+    suspicious_patterns = ['../../../', 'script>', 'javascript:', 'data:']
+    if any(pattern in request.url.lower() for pattern in suspicious_patterns):
+        app.logger.warning(f"Suspicious URL pattern: {request.url} from {request.remote_addr}")
 
 @app.route('/')  # connects default URL to index() function
 def index():
