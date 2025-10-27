@@ -11,5 +11,3 @@ PyJWT
 redis
 Flask_Limiter
 python-dotenv
-gunicorn
-redis-py
