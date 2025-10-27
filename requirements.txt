@@ -9,3 +9,7 @@ Flask_Restful
 Flask_Cors
 PyJWT
 redis
+Flask_Limiter
+python-dotenv
+gunicorn
+redis-py
