@@ -11,10 +11,11 @@ import os
 # import "packages" from "this" project
 from __init__ import app, cors  # Definitions initialization
 
-# Create limiter instance
+# Create limiter instance with Redis storage
 limiter = Limiter(
     key_func=get_remote_address,
-    default_limits=["200 per day", "50 per hour"]
+    default_limits=["200 per day", "50 per hour"],
+    storage_uri="redis://localhost:6379"  # Redis connection string
 )
 
 # Initialize with app
