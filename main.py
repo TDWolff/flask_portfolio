@@ -16,14 +16,24 @@ from __init__ import app, cors  # Definitions initialization
 
 # Create limiter instance with Redis storage
 pwss = os.getenv('redisp')
-limiter = Limiter(
-    key_func=get_remote_address,
-    default_limits=["200 per day", "50 per hour"],
-    storage_uri="redis://:"+pwss+"@localhost:6379"  # Redis connection string
-)
-
-# Initialize with app
-limiter.init_app(app)
+try:
+    limiter = Limiter(
+        key_func=get_remote_address,
+        default_limits=["200 per day", "50 per hour"],
+        storage_uri=f"redis://:{pwss}@localhost:6379"  # Fixed Redis connection string with password
+    )
+    # Initialize with app
+    limiter.init_app(app)
+    print("Redis limiter initialized successfully")
+except Exception as e:
+    print(f"Redis connection failed, falling back to memory storage: {e}")
+    # Fallback to memory storage if Redis fails
+    limiter = Limiter(
+        key_func=get_remote_address,
+        default_limits=["200 per day", "50 per hour"],
+        storage_uri="memory://"
+    )
+    limiter.init_app(app)
 
 # from api.user import user_api # Blueprint import api definition
 
