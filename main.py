@@ -7,15 +7,19 @@ from flask import Flask, jsonify
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
+import dotenv
+
+dotenv.load_dotenv()
 
 # import "packages" from "this" project
 from __init__ import app, cors  # Definitions initialization
 
 # Create limiter instance with Redis storage
+pwss = os.getenv('redisp')
 limiter = Limiter(
     key_func=get_remote_address,
     default_limits=["200 per day", "50 per hour"],
-    storage_uri="redis://localhost:6379"  # Redis connection string
+    storage_uri="redis://:"+pwss+"@localhost:6379"  # Redis connection string
 )
 
 # Initialize with app
