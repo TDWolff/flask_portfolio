@@ -11,11 +11,11 @@
 
     <!-- Main Featured Image -->
     <div class="featured-image-section mb-5">
-        <img src="{{ url_for('static', filename='assets/blender-featured.png') }}" alt="Featured Blender Artwork" class="img-fluid rounded shadow-lg">
+        <img src="{{ url_for('static', filename='images/blender-featured.jpg') }}" alt="Featured Blender Artwork" class="img-fluid rounded shadow-lg">
     </div>
 
     <!-- Demo Reel Showcase -->
-    <div class="demo-reel-showcase mb-5 p-4 rounded shadow-sm" style="background: linear-gradient(135deg, #667eea 0%, #4b69eeff 100%);">
+    <div class="demo-reel-showcase mb-5 p-4 rounded shadow-sm" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
         <div class="row align-items-center">
             <div class="col-md-8">
                 <h2 class="text-white mb-3">🎬 Blender Demo Reel | 3D Animation 1</h2>
@@ -33,9 +33,9 @@
     </div>
 
     <!-- Gallery Section -->
-    <div class="gallery-section mb-5">
-        <h2 class="mb-4">Artwork Gallery</h2>
-        <div class="row g-4">
+    <div class="gallery-section mb-4 mb-md-5">
+        <h2 class="mb-3 mb-md-4 h4 h2-md">Artwork Gallery</h2>
+        <div class="row g-3 g-md-4">
             {% set gallery_items = [
                 {"image": "blender1.png", "name": "Donut Tutorial"},
                 {"image": "blender2.png", "name": "Abstract Sculpture"},
@@ -46,7 +46,7 @@
             ] %}
             
             {% for item in gallery_items %}
-            <div class="col-md-4 col-sm-6">
+            <div class="col-6 col-md-4">
                 <div class="gallery-card" onclick="openModal('{{ url_for('static', filename='assets/' + item.image) }}', '{{ item.name }}')">
                     <img src="{{ url_for('static', filename='assets/' + item.image) }}" alt="{{ item.name }}" class="gallery-image">
                     <div class="gallery-overlay">
@@ -75,6 +75,46 @@
 </div>
 
 <style>
+/* Mobile-first responsive adjustments */
+@media (max-width: 768px) {
+    .projects-hero h1 {
+        font-size: 1.75rem;
+    }
+    
+    .projects-hero p {
+        font-size: 0.95rem;
+    }
+    
+    .small-mobile {
+        font-size: 0.9rem;
+    }
+    
+    .h4 {
+        font-size: 1.25rem;
+    }
+    
+    .gallery-caption p {
+        font-size: 0.85rem;
+    }
+    
+    .modal-close {
+        font-size: 40px;
+        right: 20px;
+        top: 10px;
+    }
+    
+    #modalCaption {
+        font-size: 1rem;
+        padding: 15px 0;
+    }
+}
+
+@media (min-width: 769px) {
+    .h2-md {
+        font-size: 2rem;
+    }
+}
+
 .gallery-card {
     position: relative;
     overflow: hidden;
@@ -91,9 +131,15 @@
 
 .gallery-image {
     width: 100%;
-    height: 250px;
+    height: 200px;
     object-fit: cover;
     display: block;
+}
+
+@media (min-width: 769px) {
+    .gallery-image {
+        height: 250px;
+    }
 }
 
 .gallery-overlay {
@@ -110,19 +156,37 @@
     transition: opacity 0.3s ease;
 }
 
+@media (max-width: 768px) {
+    .gallery-overlay {
+        bottom: 35px;
+    }
+}
+
 .gallery-card:hover .gallery-overlay {
     opacity: 1;
 }
 
 .gallery-overlay i {
     color: white;
-    font-size: 2rem;
+    font-size: 1.5rem;
+}
+
+@media (min-width: 769px) {
+    .gallery-overlay i {
+        font-size: 2rem;
+    }
 }
 
 .gallery-caption {
     background: #fff;
-    padding: 10px;
+    padding: 8px;
     text-align: center;
+}
+
+@media (min-width: 769px) {
+    .gallery-caption {
+        padding: 10px;
+    }
 }
 
 .gallery-caption p {
@@ -142,6 +206,12 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.95);
+}
+
+@media (max-width: 768px) {
+    .image-modal {
+        padding-top: 30px;
+    }
 }
 
 .modal-content {
