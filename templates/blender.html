@@ -9,17 +9,32 @@
         <p>Here are some of the most meaningful and exciting Blender projects I've worked on, showcasing my artwork journey.</p>
     </div>
 
-    <!-- Project Cards -->
-    <div class="row g-4">
-        <div class="col-md-4" id="ai-assistant">
-            <div class="project-card">
-                <h5>Blender Demo Reel | 3D Animation 1</h5>
-                <p>
-                    My first Blender demo reel showcasing various 3D animation models and scenes I created while learning Blender.
+    <!-- Main Featured Image -->
+    <div class="featured-image-section mb-5">
+        <img src="{{ url_for('static', filename='images/blender-featured.jpg') }}" alt="Featured Blender Artwork" class="img-fluid rounded shadow-lg">
+    </div>
+
+    <!-- Demo Reel Showcase -->
+    <div class="demo-reel-showcase mb-5 p-4 rounded shadow-sm" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h2 class="text-white mb-3">🎬 Blender Demo Reel | 3D Animation 1</h2>
+                <p class="text-white mb-4">
+                    My first Blender demo reel showcasing various 3D animation models and scenes I created while learning Blender. 
+                    This compilation highlights my progression and experimentation with 3D modeling, lighting, and animation techniques.
                 </p>
-                <a href="https://youtu.be/iYwHZDsTmCI" class="project-link" target="_blank">View on Youtube</a>
+            </div>
+            <div class="col-md-4">
+                <a href="https://youtu.be/iYwHZDsTmCI" class="btn btn-light btn-lg" target="_blank">
+                    <i class="bi bi-youtube"></i> Watch on YouTube
+                </a>
             </div>
         </div>
+    </div>
+
+    <!-- Project Cards -->
+    <div class="row g-4">
+        <!-- Future project cards will go here -->
     </div>
 </div>
 {% endblock %}
