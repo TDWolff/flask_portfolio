@@ -25,24 +25,54 @@ def get_key_for_limiter():
     # Regular rate limiting for everyone else
     return get_remote_address()
 
+def test_redis_connection():
+    """Test if Redis is accessible before initializing limiter"""
+    try:
+        import redis
+        pwss = os.getenv('redisp')
+        if pwss:
+            r = redis.Redis(host='172.17.0.1', port=6379, password=pwss)
+        else:
+            r = redis.Redis(host='172.17.0.1', port=6379)
+        r.ping()
+        return True
+    except Exception as e:
+        print(f"Redis connection test failed: {e}")
+        return False
+
 # Create limiter instance with Redis storage
 pwss = os.getenv('redisp')
-try:
+
+# Test Redis connection first
+if test_redis_connection():
+    try:
+        limiter = Limiter(
+            key_func=get_key_for_limiter,  # Use custom key function
+            default_limits=["200 per day", "50 per hour"],
+            storage_uri=f"redis://:{pwss}@172.17.0.1:6379"
+        )
+        limiter.init_app(app)
+        print("✅ Redis limiter initialized successfully")
+    except Exception as e:
+        print(f"❌ Redis limiter failed: {e}")
+        # Fallback to memory
+        limiter = Limiter(
+            key_func=get_key_for_limiter,
+            default_limits=["200 per day", "50 per hour"],
+            storage_uri="memory://"
+        )
+        limiter.init_app(app)
+        print("⚠️ Using memory storage as fallback")
+else:
+    # Use memory storage if Redis is not available
     limiter = Limiter(
-        key_func=get_key_for_limiter,  # Use custom key function
-        default_limits=["200 per day", "50 per hour"],
-        storage_uri=f"redis://:{pwss}@172.17.0.1:6379"
-    )
-    limiter.init_app(app)
-    print("Redis limiter initialized successfully")
-except Exception as e:
-    print(f"Redis connection failed, falling back to memory storage: {e}")
-    limiter = Limiter(
-        key_func=get_key_for_limiter,  # Use custom key function
+        key_func=get_key_for_limiter,
         default_limits=["200 per day", "50 per hour"],
         storage_uri="memory://"
     )
     limiter.init_app(app)
+    print("⚠️ Redis not available, using memory storage")
+
 
 # from api.user import user_api # Blueprint import api definition
 
