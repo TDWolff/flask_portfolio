@@ -102,8 +102,12 @@
         <div class="spinner"></div>
         <p>Loading full resolution...</p>
     </div>
-    <img class="modal-content" id="modalImage" onclick="event.stopPropagation()">
-    <div id="modalCaption"></div>
+    
+    <!-- Wrap image and caption in a container -->
+    <div class="modal-image-container">
+        <img class="modal-content" id="modalImage" onclick="event.stopPropagation()">
+        <div id="modalCaption"></div>
+    </div>
 </div>
 
 <style>
@@ -325,11 +329,19 @@
 .modal-content {
     margin: 0 auto;
     display: block;
-    max-width: 70%;
+    max-width: 100%;
     max-height: 80vh;
     object-fit: contain;
     animation: zoom 0.3s;
     position: relative;
+}
+
+.modal-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90%;
+    max-height: 90vh;
 }
 
 @keyframes zoom {
@@ -391,16 +403,23 @@
 }
 
 #modalCaption {
-    margin: auto;
+    margin: 10px auto 0;
     display: block;
-    width: 80%;
-    max-width: 700px;
+    width: 100%;
     text-align: center;
     color: #ccc;
-    padding: 20px 0;
+    padding: 10px 0;
     font-size: 1.2rem;
     z-index: 10001;
     position: relative;
+}
+
+@media (max-width: 768px) {
+    #modalCaption {
+        font-size: 1rem;
+        padding: 8px 0;
+        margin-top: 8px;
+    }
 }
 </style>
 
