@@ -161,7 +161,7 @@
         justify-content: center;  /* Horizontally center */
         min-height: 100vh;        /* Full viewport height */
     }
-    
+
     .modal-content {
         max-width: 96vw;
         max-height: 70vh;
@@ -263,7 +263,6 @@
     display: none;
     position: fixed;
     z-index: 9999;
-    padding-top: 50px;
     left: 0;
     top: 0;
     width: 100%;
@@ -272,11 +271,29 @@
     background-color: rgba(0, 0, 0, 0.95);
     padding-left: 0;
     padding-right: 0;
+    /* Add flexbox centering for all screen sizes */
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 768px) {
-    .image-modal {
-        padding-top: 30px;
+    .modal-nav {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .modal-prev {
+        left: 10px;
+    }
+    
+    .modal-next {
+        right: 10px;
+    }
+    
+    .modal-content {
+        max-width: 96vw;
+        max-height: 70vh;
     }
 }
 
@@ -306,12 +323,13 @@
 }
 
 .modal-content {
-    margin: auto;
+    margin: 0 auto;
     display: block;
     max-width: 70%;
     max-height: 80vh;
     object-fit: contain;
     animation: zoom 0.3s;
+    position: relative;
 }
 
 @keyframes zoom {
@@ -422,7 +440,7 @@ function openModal(imageSrc, caption, brightness) {
     var modalCaption = document.getElementById("modalCaption");
     var loadingIndicator = document.getElementById("loadingIndicator");
     
-    modal.style.display = "block";
+    modal.style.display = "flex";  // Changed from "block" to "flex"
     loadingIndicator.style.display = "block";
     modalImg.style.display = "none";
     
@@ -476,7 +494,7 @@ function closeModal(event) {
 // Keyboard navigation
 document.addEventListener('keydown', function(event) {
     var modal = document.getElementById("imageModal");
-    if (modal.style.display === "block") {
+    if (modal.style.display === "flex") {  // Changed from "block" to "flex"
         if (event.key === "Escape") {
             closeModal();
         } else if (event.key === "ArrowLeft") {
