@@ -154,20 +154,21 @@
         right: 10px;
     }
 
-    .modal-content {
-        max-width: 96vw;
-        max-height: 70vh;
-        margin: 8vh auto 0 auto;
-        display: block;
-        border-radius: 10px;
-        box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-    }
-    
     #imageModal {
         padding-top: 0;
         display: flex;
-        align-items: center;
-        justify-content: center;
+        align-items: center;      /* Center vertically */
+        justify-content: center;  /* Center horizontally */
+        min-height: 100vh;        /* Ensure full viewport height for vertical centering */
+    }
+    
+    .modal-content {
+        max-width: 96vw;
+        max-height: 70vh;
+        margin: 0 auto;
+        display: block;
+        border-radius: 10px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.4);
     }
 }
 
