@@ -49,7 +49,7 @@ if test_redis_connection():
         limiter = Limiter(
             key_func=get_key_for_limiter,  # Use custom key function
             default_limits=["200 per day", "30 per hour"],
-            storage_uri=f"redis://:{pwss}@172.17.0.1:6379"
+            storage_uri=f"redis://:{pwss}@172.17.0.1:6379",
             storage_options={'socket_keepalive': True, 'socket_timeout': 5}
         )
         limiter.init_app(app)
