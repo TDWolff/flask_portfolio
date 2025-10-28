@@ -10,6 +10,8 @@ import os
 import dotenv
 from flask_caching import Cache
 
+from __init__ import app, cors  # Definitions initialization
+
 pwss = os.getenv('redisp')
 
 cache = Cache(app, config={
@@ -21,9 +23,6 @@ cache = Cache(app, config={
 })
 
 dotenv.load_dotenv()
-
-# import "packages" from "this" project
-from __init__ import app, cors  # Definitions initialization
 
 def get_key_for_limiter():
     """Custom key function that allows dev bypass"""
