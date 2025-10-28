@@ -93,7 +93,11 @@ def health():
     """Health check for load balancer"""
     # get header details to check for perms
     header = request.headers.get('X-Health-Key')
-    expected_key = os.getenv('HEALTH_KEY')
+    try:
+        expected_key = os.getenv('HEALTH_KEY')
+    except Exception as e:
+        print(f"Error retrieving HEALTH_KEY: {e}")
+        expected_key = None
     if header != expected_key:
         return jsonify({"error": "Unauthorized"}), 401
     return jsonify({"status": "healthy"}), 200
@@ -104,14 +108,18 @@ def status():
     """Detailed status check"""
     # get header details to check for perms
     header = request.headers.get('X-Status-Key')
-    expected_key = os.getenv('STATUS_KEY')
+    try:
+        expected_key = os.getenv('STATUS_KEY')
+    except Exception as e:
+        print(f"Error retrieving STATUS_KEY: {e}")
+        expected_key = None
     if header != expected_key:
         return jsonify({"error": "Unauthorized"}), 401
     redis_status = test_redis_connection()
     return jsonify({
         "status": "healthy",
         "redis_connected": redis_status,
-        "uptime": threading.main_thread().name
+        "uptime": threading.main_thread().is_alive()
     }), 200
 
 # from api.user import user_api # Blueprint import api definition
