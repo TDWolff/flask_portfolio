@@ -12,3 +12,4 @@ redis
 Flask_Limiter
 python-dotenv
 flask_caching
+flask_compress
