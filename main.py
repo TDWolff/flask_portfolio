@@ -3,7 +3,7 @@ import subprocess
 # import "packages" from flask
 from flask import render_template,request  # import render_template from "public" flask libraries
 from flask.cli import AppGroup
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, send_from_directory, request
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
@@ -87,16 +87,26 @@ else:
 def serve_robots_txt():
     return send_from_directory(app.static_folder, 'robots.txt')
 
-@app.route('/health')
+@app.route('/health', methods=['POST'])
 @limiter.exempt
 def health():
     """Health check for load balancer"""
+    # get header details to check for perms
+    header = request.headers.get('X-Health-Key')
+    expected_key = os.getenv('HEALTH_KEY')
+    if header != expected_key:
+        return jsonify({"error": "Unauthorized"}), 401
     return jsonify({"status": "healthy"}), 200
 
-@app.route('/status')
+@app.route('/status', methods=['POST'])
 @limiter.exempt
 def status():
     """Detailed status check"""
+    # get header details to check for perms
+    header = request.headers.get('X-Status-Key')
+    expected_key = os.getenv('STATUS_KEY')
+    if header != expected_key:
+        return jsonify({"error": "Unauthorized"}), 401
     redis_status = test_redis_connection()
     return jsonify({
         "status": "healthy",
