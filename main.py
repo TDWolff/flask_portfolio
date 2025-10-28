@@ -87,6 +87,22 @@ else:
 def serve_robots_txt():
     return send_from_directory(app.static_folder, 'robots.txt')
 
+@app.route('/health')
+@limiter.exempt
+def health():
+    """Health check for load balancer"""
+    return jsonify({"status": "healthy"}), 200
+
+@app.route('/status')
+@limiter.exempt
+def status():
+    """Detailed status check"""
+    redis_status = test_redis_connection()
+    return jsonify({
+        "status": "healthy",
+        "redis_connected": redis_status,
+        "uptime": threading.main_thread().name
+    }), 200
 
 # from api.user import user_api # Blueprint import api definition
 
