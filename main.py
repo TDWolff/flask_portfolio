@@ -48,8 +48,9 @@ if test_redis_connection():
     try:
         limiter = Limiter(
             key_func=get_key_for_limiter,  # Use custom key function
-            default_limits=["200 per day", "50 per hour"],
+            default_limits=["200 per day", "30 per hour"],
             storage_uri=f"redis://:{pwss}@172.17.0.1:6379"
+            storage_options={'socket_keepalive': True, 'socket_timeout': 5}
         )
         limiter.init_app(app)
         print("✅ Redis limiter initialized successfully")
@@ -58,7 +59,7 @@ if test_redis_connection():
         # Fallback to memory
         limiter = Limiter(
             key_func=get_key_for_limiter,
-            default_limits=["200 per day", "50 per hour"],
+            default_limits=["200 per day", "30 per hour"],
             storage_uri="memory://"
         )
         limiter.init_app(app)
