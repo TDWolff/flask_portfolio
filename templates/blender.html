@@ -85,10 +85,16 @@
     
     <!-- Navigation Arrows -->
     <button class="modal-nav modal-prev" onclick="navigateGallery(-1, event)">
-        ◄
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="15" stroke="#333" stroke-width="2" fill="rgba(255,255,255,0.7)"/>
+          <polyline points="20,8 12,16 20,24" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
     </button>
     <button class="modal-nav modal-next" onclick="navigateGallery(1, event)">
-        ►
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="15" stroke="#333" stroke-width="2" fill="rgba(255,255,255,0.7)"/>
+          <polyline points="12,8 20,16 12,24" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
     </button>
     
     <div id="loadingIndicator" class="loading-spinner">
@@ -330,11 +336,7 @@
     align-items: center;
     justify-content: center;
     padding: 0;
-    line-height: normal;
-    font-family: inherit;
-    font-weight: 400;
-    background-clip: padding-box;
-    box-sizing: border-box;
+    line-height: 1;
 }
 
 .modal-nav:hover {
