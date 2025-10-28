@@ -3,7 +3,7 @@ import subprocess
 # import "packages" from flask
 from flask import render_template,request  # import render_template from "public" flask libraries
 from flask.cli import AppGroup
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
@@ -72,6 +72,10 @@ else:
     )
     limiter.init_app(app)
     print("⚠️ Redis not available, using memory storage")
+    
+@app.route('/robots.txt')
+def serve_robots_txt():
+    return send_from_directory(app.static_folder, 'robots.txt')
 
 
 # from api.user import user_api # Blueprint import api definition
