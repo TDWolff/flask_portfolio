@@ -8,6 +8,17 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
 import dotenv
+from flask_caching import Cache
+
+pwss = os.getenv('redisp')
+
+cache = Cache(app, config={
+    'CACHE_TYPE': 'redis',
+    'CACHE_REDIS_HOST': '172.17.0.1',
+    'CACHE_REDIS_PORT': 6379,
+    'CACHE_REDIS_PASSWORD': pwss,
+    'CACHE_DEFAULT_TIMEOUT': 300
+})
 
 dotenv.load_dotenv()
 
@@ -28,8 +39,7 @@ def get_key_for_limiter():
 def test_redis_connection():
     """Test if Redis is accessible before initializing limiter"""
     try:
-        import redis
-        pwss = os.getenv('redisp')
+        import redis        
         if pwss:
             r = redis.Redis(host='172.17.0.1', port=6379, password=pwss)
         else:
@@ -111,6 +121,7 @@ def log_suspicious_requests():
         app.logger.warning(f"Suspicious URL pattern: {request.url} from {request.remote_addr}")
 
 @app.route('/')  # connects default URL to index() function
+@cache.cached(timeout=3600)
 def index():
     return render_template("index.html")
 
@@ -127,6 +138,7 @@ def resume():
     return render_template("resume.html")
 
 @app.route('/blender')
+@cache.cached(timeout=3600)
 def blender():
     return render_template("blender.html")
 
@@ -139,6 +151,7 @@ def tutorials():
     return render_template("tutorials.html")
 
 @app.route('/table/')  # connects /stub/ URL to stub() function
+@cache.cached(timeout=3600)
 def table():
     return render_template("table.html")
 

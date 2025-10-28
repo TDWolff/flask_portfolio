@@ -11,3 +11,4 @@ PyJWT
 redis
 Flask_Limiter
 python-dotenv
+flask_caching
