@@ -5,7 +5,7 @@ from flask.cli import AppGroup
 from flask import Flask, jsonify, send_from_directory
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from flask_compress import Compress  # ADD THIS
+from flask_compress import Compress
 import os
 import dotenv
 from flask_caching import Cache
@@ -25,7 +25,7 @@ redis_pool = redis.ConnectionPool(
     host='172.17.0.1',
     port=6379,
     password=pwss,
-    max_connections=100,  # Increase for high concurrency
+    max_connections=100,
     decode_responses=True,
     socket_keepalive=True,
     socket_connect_timeout=5,
@@ -34,28 +34,8 @@ redis_pool = redis.ConnectionPool(
     health_check_interval=30
 )
 
-# Configure cache with connection pool
-cache = Cache(app, config={
-    'CACHE_TYPE': 'redis',
-    'CACHE_REDIS_HOST': '172.17.0.1',
-    'CACHE_REDIS_PORT': 6379,
-    'CACHE_REDIS_PASSWORD': pwss,
-    'CACHE_DEFAULT_TIMEOUT': 3600,  # Increased to 1 hour
-    'CACHE_KEY_PREFIX': 'flask_',
-    'CACHE_OPTIONS': {
-        'connection_pool': redis_pool
-    }
-})
-
-def get_key_for_limiter():
-    """Custom key function that allows dev bypass"""
-    dev_token = request.headers.get('X-Dev-Token')
-    if dev_token and dev_token == os.getenv('DEV_TOKEN'):
-        return None
-    return get_remote_address()
-
 def test_redis_connection():
-    """Test if Redis is accessible before initializing limiter"""
+    """Test if Redis is accessible"""
     try:
         r = redis.Redis(connection_pool=redis_pool)
         r.ping()
@@ -64,12 +44,42 @@ def test_redis_connection():
         print(f"Redis connection test failed: {e}")
         return False
 
+# Configure cache with fallback to simple cache
+redis_available = test_redis_connection()
+
+if redis_available:
+    cache = Cache(app, config={
+        'CACHE_TYPE': 'redis',
+        'CACHE_REDIS_HOST': '172.17.0.1',
+        'CACHE_REDIS_PORT': 6379,
+        'CACHE_REDIS_PASSWORD': pwss,
+        'CACHE_DEFAULT_TIMEOUT': 3600,
+        'CACHE_KEY_PREFIX': 'flask_',
+        'CACHE_OPTIONS': {
+            'connection_pool': redis_pool
+        }
+    })
+    print("✅ Redis cache initialized successfully")
+else:
+    cache = Cache(app, config={
+        'CACHE_TYPE': 'simple',
+        'CACHE_DEFAULT_TIMEOUT': 3600
+    })
+    print("⚠️ Redis not available, using simple cache")
+
+def get_key_for_limiter():
+    """Custom key function that allows dev bypass"""
+    dev_token = request.headers.get('X-Dev-Token')
+    if dev_token and dev_token == os.getenv('DEV_TOKEN'):
+        return None
+    return get_remote_address()
+
 # Increase rate limits for burst traffic
-if test_redis_connection():
+if redis_available:
     try:
         limiter = Limiter(
             key_func=get_key_for_limiter,
-            default_limits=["2000 per day", "200 per hour", "70 per minute"],  # Added per-minute limit
+            default_limits=["2000 per day", "200 per hour", "70 per minute"],
             storage_uri=f"redis://:{pwss}@172.17.0.1:6379",
             storage_options={
                 'socket_keepalive': True, 
@@ -112,15 +122,14 @@ def add_cache_and_security_headers(response):
     return response
 
 @app.route('/robots.txt')
-@cache.cached(timeout=86400)  # Cache for 24 hours
+@cache.cached(timeout=86400)
 def serve_robots_txt():
     return send_from_directory(app.static_folder, 'robots.txt')
 
-@app.route('/health', methods=['GET'])  # Changed to GET for load balancer compatibility
+@app.route('/health', methods=['GET'])
 @limiter.exempt
 def health():
     """Lightweight health check for load balancer"""
-    # Simple health check without authentication for ALB
     return jsonify({"status": "healthy"}), 200
 
 @app.route('/status', methods=['POST'])
@@ -134,10 +143,17 @@ def status():
         return jsonify({"error": "Unauthorized"}), 401
     
     redis_status = test_redis_connection()
+    cache_stats = None
+    if redis_status:
+        try:
+            cache_stats = cache.cache._read_client.info('stats')
+        except:
+            cache_stats = "Unable to fetch stats"
+    
     return jsonify({
         "status": "healthy",
         "redis_connected": redis_status,
-        "cache_stats": cache.cache._read_client.info('stats') if redis_status else None
+        "cache_stats": cache_stats
     }), 200
 
 @app.errorhandler(404)
@@ -156,18 +172,15 @@ def ratelimit_handler(e):
 @app.before_request
 def log_suspicious_requests():
     """Lightweight security logging"""
-    # Skip logging for health checks to reduce overhead
     if request.path in ['/health', '/status']:
         return
     
     user_agent = request.headers.get('User-Agent', '')
     
-    # Only log actual suspicious activity
     if any(bot in user_agent.lower() for bot in ['sqlmap', 'nikto', 'nmap', 'masscan']):
         app.logger.warning(f"Suspicious user agent: {user_agent} from {request.remote_addr}")
         return jsonify({"error": "Forbidden"}), 403
     
-    # Check for path traversal attempts
     if '../' in request.path or '..' in request.path:
         app.logger.warning(f"Path traversal attempt: {request.path} from {request.remote_addr}")
         return jsonify({"error": "Forbidden"}), 403
@@ -182,6 +195,11 @@ def index():
 @cache.cached(timeout=3600)
 def about():
     return render_template("about.html")
+
+@app.route('/bday')
+@cache.cached(timeout=3600)
+def card():
+    return render_template("card.html")
 
 @app.route('/projects')
 @cache.cached(timeout=3600)
@@ -229,5 +247,5 @@ if __name__ == "__main__":
         debug=not is_production,
         host="0.0.0.0",
         port="8086",
-        threaded=True  # Enable threading
+        threaded=True
     )
