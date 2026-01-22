@@ -211,6 +211,11 @@ def projects():
 def resume():
     return render_template("resume.html")
 
+@app.route('/officialresume')
+@cache.cached(timeout=3600)
+def officialresume():
+    return render_template("officialresume.html")
+
 @app.route('/blender')
 @cache.cached(timeout=3600)
 def blender():

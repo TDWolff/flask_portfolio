@@ -1,0 +1,45 @@
+{% extends "layouts/base.html" %}
+{% set project = "Resume - Torin Wolff" %}
+
+{% block body %}
+<style>
+    .pdf-container {
+        display: flex;          /* Use flexbox for easy centering */
+        justify-content: center;/* Center horizontally */
+        align-items: center;    /* Center vertically */
+        padding: 2rem 1rem;     /* Add space on top/bottom (2rem) and sides (1rem) */
+        min-height: 100vh;      /* Make container at least the full height of the screen */
+        box-sizing: border-box; /* Ensures padding doesn't add to the width/height */
+        background-color: #f0f2f5; /* A light grey background to make the PDF stand out */
+    }
+    .pdf-iframe {
+        width: 100%;            /* Take up 100% of the container's width */
+        max-width: 850px;       /* But don't get wider than 850px on large screens */
+        height: 90vh;           /* Be 90% of the screen's height */
+        
+        /* 'Make it look good' styles */
+        border: 1px solid #ddd;              /* A subtle border */
+        border-radius: 8px;                  /* Soft, rounded corners */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* A clean shadow to lift it off the page */
+    }
+    @media (max-width: 600px) {
+        .pdf-container {
+            padding: 1rem 0.5rem; /* Reduce the padding on smaller screens */
+        }
+        .pdf-iframe {
+            box-shadow: none;     /* Shadows can be distracting on small screens */
+            border: 1px solid #ccc;
+        }
+    }
+</style>
+
+<!-- Wrapper for centering and styling -->
+<div class="pdf-container">
+
+    <!-- Your iFrame, now with a class instead of inline styles -->
+    <iframe class="pdf-iframe" src="{{ url_for('static', filename='assets/TWResume.pdf') }}">
+        <p>Your browser does not support iFrames. You can view the PDF <a href="{{ url_for('static', filename='assets/TWResume.pdf') }}">here</a>.</p>
+    </iframe>
+
+</div>
+{% endblock %}
