@@ -206,12 +206,11 @@ def card():
 def projects():
     return render_template("projects.html")
 
-@app.route('/resume')
+@app.route('/moreaboutme')
 @cache.cached(timeout=3600)
-def resume():
-    return render_template("resume.html")
+def moreaboutme():
 
-@app.route('/officialresume')
+@app.route('/resume')
 @cache.cached(timeout=3600)
 def officialresume():
     return render_template("officialresume.html")
