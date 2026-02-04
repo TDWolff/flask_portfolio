@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+{% set project = "emuseum" %}
+
+{% block body %}
+<div class="container d-flex flex-column align-items-center justify-content-center" style="min-height: 70vh;">
+    <div class="construction-animation mb-4">
+        <i class="bi bi-cone-striped text-warning" style="font-size: 5rem; animation: bounce 2s infinite;"></i>
+        <i class="bi bi-hammer text-primary" style="font-size: 4rem; animation: swing 1.5s infinite ease-in-out; margin-left: -20px;"></i>
+    </div>
+    
+    <h1 class="display-4 fw-bold mb-3">Under Construction! 🚧</h1>
+    <p class="lead text-muted text-center max-w-md">
+        The digital elves are currently hammering away at this exhibition.<br>
+        Check back soon for something amazing!
+    </p>
+    
+    <a href="/" class="btn btn-outline-primary mt-4 rounded-pill px-4">
+        <i class="bi bi-arrow-left"></i> Return to Safety
+    </a>
+
+    <style>
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        @keyframes swing {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-15deg); }
+            100% { transform: rotate(0deg); }
+        }
+    </style>
+</div>
+{% endblock %}

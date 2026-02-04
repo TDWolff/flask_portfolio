@@ -1,0 +1,32 @@
+{% extends "layouts/base.html" %}
+{% set project = "animation" %}
+
+{% block body %}
+<div class="container d-flex flex-column align-items-center justify-content-center" style="min-height: 70vh;">
+    <div class="construction-animation mb-4">
+        <i class="bi bi-film text-danger" style="font-size: 5rem; animation: bounce 2s infinite;"></i>
+        <i class="bi bi-camera-reels text-dark" style="font-size: 4rem; animation: spin 4s infinite linear; margin-left: 10px;"></i>
+    </div>
+    
+    <h1 class="display-4 fw-bold mb-3">Rendering in Progress... 🎬</h1>
+    <p class="lead text-muted text-center max-w-md">
+        Our render farm is heating up to bring you these animations.<br>
+        Grab some popcorn and come back later!
+    </p>
+    
+    <a href="/" class="btn btn-outline-primary mt-4 rounded-pill px-4">
+        <i class="bi bi-arrow-left"></i> Back to the Lobby
+    </a>
+
+    <style>
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</div>
+{% endblock %}

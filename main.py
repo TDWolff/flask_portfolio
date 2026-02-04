@@ -206,6 +206,16 @@ def card():
 def projects():
     return render_template("projects.html")
 
+@app.route('/animation')
+@cache.cached(timeout=3600)
+def animation():
+    return render_template("animation.html")
+
+@app.route('/emuseum')
+@cache.cached(timeout=3600)
+def emuseum():
+    return render_template("emuseum.html")
+
 @app.route('/moreaboutme')
 @cache.cached(timeout=3600)
 def moreaboutme():
