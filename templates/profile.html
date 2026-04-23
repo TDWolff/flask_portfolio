@@ -64,7 +64,7 @@
         <div id="profileDetails" style="display:none;">
             <img src="/static/assets/twcom.png" alt="Profile" class="profile-avatar">
             <div class="profile-username" id="profileUsername"></div>
-            <div class="profile-role">Member</div>
+            <div class="profile-role" id="profileRole"></div>
             <hr class="profile-divider">
             <form id="changePasswordForm" style="text-align:left;max-width:320px;margin:0 auto;">
                 <div style="margin-bottom:1rem;">
@@ -110,6 +110,7 @@ async function loadProfile() {
         if (resp.status === 200) {
             const data = await resp.json();
             document.getElementById('profileUsername').textContent = data.username || 'Unknown User';
+            document.getElementById('profileRole').textContent = data.role ? data.role : '';
             loading.style.display = 'none';
             details.style.display = '';
         } else if (resp.status === 401) {

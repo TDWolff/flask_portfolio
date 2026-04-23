@@ -186,7 +186,7 @@
             <a href="{{ url_for('about') }}" class="navbar-link">About Me</a>
             <a href="{{ url_for('projects') }}" class="navbar-link">Projects</a>
             <a href="{{ url_for('blender') }}" class="navbar-link">Blender</a>
-            <a href="{{ url_for('blogs') }}" class="navbar-link">Blogs</a>
+            <!-- <a href="{{ url_for('blogs') }}" class="navbar-link">Blogs</a> -->
             <a href="{{ url_for('officialresume') }}" class="navbar-link">Resume</a>
             <!-- Dynamic Login/Profile button with dropdown -->
             <div style="position:relative;display:inline-block;">
@@ -215,12 +215,21 @@
             const parts = value.split(`; ${name}=`);
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
-        function updateLoginProfileBtn() {
+        async function updateLoginProfileBtn() {
             const btn = document.getElementById('loginProfileBtn');
             const dropdown = document.getElementById('profileDropdown');
             const loggedIn = getCookie('loggedIn');
             if (loggedIn === 'true') {
-                btn.textContent = 'Profile';
+                // Fetch username from API
+                let username = 'Profile';
+                try {
+                    const resp = await fetch(`${API_URL}/profile`, { credentials: 'include' });
+                    if (resp.status === 200) {
+                        const data = await resp.json();
+                        if (data.username) username = data.username;
+                    }
+                } catch {}
+                btn.textContent = username;
                 btn.href = '#';
                 btn.setAttribute('aria-haspopup', 'true');
                 btn.setAttribute('aria-expanded', 'false');
@@ -254,7 +263,8 @@
             dropdownOpen = false;
         }
         btn.addEventListener('click', function(e) {
-            if (btn.textContent === 'Profile') {
+            const loggedIn = getCookie('loggedIn');
+            if (loggedIn === 'true') {
                 e.preventDefault();
                 if (dropdownOpen) {
                     hideDropdown();
@@ -268,20 +278,20 @@
         });
         // Show dropdown on mouse enter, hide on mouse leave (only if logged in)
         btn.addEventListener('mouseenter', function(e) {
-            if (btn.textContent === 'Profile') showDropdown();
+            if (getCookie('loggedIn') === 'true') showDropdown();
         });
         btn.addEventListener('mouseleave', function(e) {
             setTimeout(() => {
-                if (btn.textContent === 'Profile' && !dropdown.matches(':hover') && !btn.matches(':hover')) {
+                if (getCookie('loggedIn') === 'true' && !dropdown.matches(':hover') && !btn.matches(':hover')) {
                     hideDropdown();
                 }
             }, 120);
         });
         dropdown.addEventListener('mouseenter', function(e) {
-            if (btn.textContent === 'Profile') showDropdown();
+            if (getCookie('loggedIn') === 'true') showDropdown();
         });
         dropdown.addEventListener('mouseleave', function(e) {
-            if (btn.textContent === 'Profile') hideDropdown();
+            if (getCookie('loggedIn') === 'true') hideDropdown();
         });
 
                 // Hide dropdown on click outside
